@@ -4,18 +4,19 @@
     <headerTop title="我的"/>
     
     <section class="profile-number">
-      <!-- 用路由标签代替对应的a标签，点击登录时路由就跳转到Login上 -->
-      <router-link to="/login"  class="profile-link">
+      <!-- 用路由标签代替对应的a标签，点击登录这一块时，如果还没登录就跳转到Login上，如果已经登录了就跳转到userinfo页面上 -->
+      <router-link :to="userInfo._id? '/userinfo' : '/login'"  class="profile-link">
         <div class="profile_image">
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top">登录/注册</p>
+          <!-- 按照登录方式显示用户信息 -->
+          <p class="user-info-top" v-if="!userInfo.phone">{{userInfo.name || '登录/注册'}}</p>
           <p>
             <span class="user-icon">
               <i class="iconfont icon-shouji icon-mobile"></i>
             </span>
-            <span class="icon-mobile-number">暂无绑定手机号</span>
+            <span class="icon-mobile-number">{{userInfo.phone || '暂无绑定手机号'}}</span>
           </p>
         </div>
         <span class="arrow">
@@ -91,10 +92,15 @@
         </div>
       </a>
     </section>
+
+    <section class="profile_my_order border-1px">
+      <mt-button type="danger" style="width: 100%" v-if="userInfo._id" @click="logout">退出登陆</mt-button>
+    </section>
   </section>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import headerTop from '../../components/headerTop/headerTop.vue'
 
 export default {
@@ -107,7 +113,10 @@ export default {
     headerTop
   },
 
-  computed: {},
+  computed: {
+    // 读取userInfo
+    ...mapState(['userInfo'])
+  },
 
   methods: {}
 }

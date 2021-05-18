@@ -15,15 +15,12 @@
 </template>
 
 <script>
+
 export default {
-    // 接收父组件传递过来的title数据
+  // 接收父组件传递过来的title数据
   props:{
       title:String
   },
-
-  components: {},
-
-  computed: {},
 
   methods: {}
 }

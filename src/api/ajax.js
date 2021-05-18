@@ -13,7 +13,7 @@ export default function ajax (url, data={}, type='GET') {
         // 如果是get请求，就把请求参数拼接到url上
         if (type==='GET') {
             let dataStr = ''
-            object.keys(data).forEach(key => {
+            Object.keys(data).forEach(key => {
                 dataStr += key + '=' + data[key] + '&'
             })
             if (dataStr != '') {
